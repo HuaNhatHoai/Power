@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toán Chuyên · Góc học tập</title>
+<meta name="color-scheme" content="light dark">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+<style>
+/* ======================================================================
+   TOKENS
+   ====================================================================== */
+:root{
+  --paper:#FAF7F0;
+  --surface:#FFFFFF;
+  --ink:#1E2430;
+  --ink-soft:#5B6472;
+  --line:#E4DFD1;
+  --line-strong:#CFC8B4;
+  --accent:#2B5D5E;         /* xanh mực - điểm nhấn chính */
+  --accent-ink:#173C3D;
+  --accent-soft:#E4EEEB;
+  --amber:#B8792F;          /* nhấn phụ cho ví dụ */
+  --amber-soft:#F3E8D8;
+  --danger:#A8432E;
+  --grid-line: rgba(43,93,94,0.06);
+  --shadow: 0 1px 2px rgba(30,36,48,0.04), 0 8px 24px -12px rgba(30,36,48,0.15);
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark){
+    --paper:#171A1F;
+    --surface:#1E2229;
+    --ink:#EDEAE0;
+    --ink-soft:#9CA3AF;
+    --line:#2C313A;
+    --line-strong:#3A4048;
+    --accent:#6FB3AC;
+    --accent-ink:#BFE3DD;
+    --accent-soft:#20302E;
+    --amber:#D9A251;
+    --amber-soft:#332A1C;
+    --danger:#E28777;
+    --grid-line: rgba(111,179,172,0.05);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#171A1F;
+  --surface:#1E2229;
+  --ink:#EDEAE0;
+  --ink-soft:#9CA3AF;
+  --line:#2C313A;
+  --line-strong:#3A4048;
+  --accent:#6FB3AC;
+  --accent-ink:#BFE3DD;
+  --accent-soft:#20302E;
+  --amber:#D9A251;
+  --amber-soft:#332A1C;
+  --danger:#E28777;
+  --grid-line: rgba(111,179,172,0.05);
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+html{scroll-padding-top: env(safe-area-inset-top, 0px);}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ======================================================================
+   LAYOUT
+   ====================================================================== */
+.app{
+  display:flex;
+  min-height:100%;
+}
+
+/* ---- Sidebar ---- */
+.sidebar{
+  width:300px;
+  flex:0 0 300px;
+  background:var(--surface);
+  border-right:1px solid var(--line);
+  height:100vh;
+  height:100dvh;
+  position:sticky;
+  top:0;
+  display:flex;
+  flex-direction:column;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: transform .25s ease;
+  z-index:40;
+}
+.sidebar-head{
+  padding:22px 20px 16px;
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.brand .mark{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:600;
+  font-size:26px;
+  color:var(--accent);
+  line-height:1;
+}
+.brand .name{
+  font-family:var(--serif);
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.2px;
+}
+.brand-sub{
+  margin-top:4px;
+  font-size:12.5px;
+  color:var(--ink-soft);
+}
+.progress-overall{
+  margin-top:14px;
+}
+.progress-overall .row{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-bottom:5px;
+}
+.progress-track{
+  height:5px;
+  border-radius:99px;
+  background:var(--line);
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:99px;
+  transition:width .4s ease;
+}
+
+.search-wrap{
+  padding:14px 20px 6px;
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  padding:8px 10px;
+  background:var(--paper);
+}
+.search-box svg{flex:none; opacity:.5;}
+.search-box input{
+  border:0;
+  outline:0;
+  background:transparent;
+  font-family:var(--sans);
+  font-size:13.5px;
+  color:var(--ink);
+  width:100%;
+}
+.search-box input::placeholder{color:var(--ink-soft);}
+
+.toc{
+  flex:1;
+  overflow-y:auto;
+  padding:10px 12px 24px;
+}
+.chuong{
+  margin-bottom:4px;
+}
+.chuong-head{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 8px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:var(--radius-s);
+  text-align:left;
+  font-family:var(--sans);
+  color:var(--ink);
+}
+.chuong-head:hover{background:var(--accent-soft);}
+.chuong-head .chevron{
+  width:14px; height:14px; flex:none;
+  color:var(--ink-soft);
+  transition:transform .18s ease;
+}
+.chuong.open .chevron{transform:rotate(90deg);}
+.chuong-head .ctitle{
+  flex:1;
+  font-size:13.5px;
+  font-weight:600;
+}
+.chuong-head .ccount{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-soft);
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:99px;
+  padding:1px 7px;
+}
+.bai-list{
+  list-style:none;
+  margin:2px 0 8px;
+  padding:0 0 0 28px;
+  display:none;
+  border-left:1px solid var(--line);
+  margin-left:16px;
+}
+.chuong.open .bai-list{display:block;}
+.bai-list li{margin:1px 0;}
+.bai-link{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:var(--radius-s);
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-soft);
+  text-align:left;
+  line-height:1.3;
+}
+.bai-link:hover{background:var(--accent-soft); color:var(--ink);}
+.bai-link.active{
+  background:var(--accent-soft);
+  color:var(--accent-ink);
+  font-weight:600;
+}
+.bai-link .dot{
+  width:7px; height:7px; flex:none; border-radius:99px;
+  border:1.5px solid var(--line-strong);
+  background:transparent;
+}
+.bai-link.done .dot{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.sidebar-foot{
+  padding:12px 20px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  color:var(--ink-soft);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.theme-btn{
+  border:1px solid var(--line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  border-radius:var(--radius-s);
+  padding:5px 8px;
+  cursor:pointer;
+  font-size:11px;
+  font-family:var(--sans);
+}
+
+/* ---- Main ---- */
+.main{
+  flex:1;
+  min-width:0;
+  padding: 28px 40px 80px;
+}
+.mobile-bar{
+  display:none;
+}
+.crumbs{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.crumbs span{color:var(--ink);}
+
+.topic-head{
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.topic-title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(26px, 3.4vw, 36px);
+  line-height:1.15;
+  max-width:640px;
+}
+.topic-title .num{
+  color:var(--accent);
+  font-style:italic;
+  margin-right:10px;
+}
+.done-toggle{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  border-radius:99px;
+  padding:7px 14px 7px 10px;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.done-toggle .dot{
+  width:16px; height:16px; border-radius:99px;
+  border:2px solid var(--line-strong);
+  display:flex; align-items:center; justify-content:center;
+  flex:none;
+}
+.done-toggle.done{
+  border-color:var(--accent);
+  color:var(--accent-ink);
+  background:var(--accent-soft);
+}
+.done-toggle.done .dot{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.done-toggle .dot svg{width:10px;height:10px;opacity:0;}
+.done-toggle.done .dot svg{opacity:1;}
+
+.tabs{
+  display:flex;
+  gap:4px;
+  margin-bottom:26px;
+  border-bottom:1px solid var(--line);
+}
+.tab-btn{
+  border:0;
+  background:transparent;
+  padding:9px 4px;
+  margin-right:22px;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:14.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  position:relative;
+  top:1px;
+}
+.tab-btn .n{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-soft);
+  margin-left:5px;
+}
+.tab-btn.active{
+  color:var(--ink);
+  border-bottom:2px solid var(--accent);
+  font-weight:600;
+}
+
+.panel{display:none;}
+.panel.active{display:block; animation: fadein .22s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:translateY(0);}}
+
+/* ---- Lý thuyết ---- */
+.ly-thuyet{
+  max-width:760px;
+  font-size:16px;
+  line-height:1.75;
+}
+.ly-thuyet p{margin:0 0 16px;}
+.block{
+  margin: 22px 0;
+}
+.block-label{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.03em;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+.block.dinhnghia, .block.dinhly{
+  border:1px solid var(--line-strong);
+  border-left:3px solid var(--accent);
+  border-radius:0 var(--radius-s) var(--radius-s) 0;
+  padding:14px 18px;
+  background:var(--surface);
+}
+.block.dinhnghia .block-label{color:var(--ink-soft);}
+.block.dinhly .block-title, .block.dinhnghia .block-title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:16.5px;
+  margin-bottom:4px;
+}
+.block.luuy{
+  border-left:3px solid var(--amber);
+  background:var(--amber-soft);
+  padding:12px 18px;
+  border-radius:0 var(--radius-s) var(--radius-s) 0;
+  font-size:14.5px;
+}
+.block.luuy .block-label{color:var(--amber);}
+.block > :last-child{margin-bottom:0;}
+
+/* ---- Ví dụ ---- */
+.vidu{
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  margin-bottom:18px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.vidu-head{
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+}
+.vidu-head .ten{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:16px;
+}
+.vidu-body{padding:18px 20px; font-size:15.5px; line-height:1.7;}
+.vidu-de{margin-bottom:2px;}
+.reveal-btn{
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:var(--accent-ink);
+  border-radius:99px;
+  padding:6px 14px;
+  font-family:var(--sans);
+  font-size:12.5px;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.reveal-btn:hover{background:var(--accent-soft);}
+.loigiai{
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px dashed var(--line-strong);
+  display:none;
+}
+.loigiai.show{display:block;}
+.loigiai .tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--amber);
+  margin-bottom:8px;
+}
+
+/* ---- Bài tập ---- */
+.baitap{
+  display:flex;
+  gap:16px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.baitap:last-child{border-bottom:0;}
+.baitap .idx{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:20px;
+  color:var(--accent);
+  flex:none;
+  width:34px;
+}
+.baitap-content{flex:1; min-width:0;}
+.baitap-de{font-size:15.5px; line-height:1.7;}
+.baitap-meta{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+  align-items:center;
+}
+.badge{
+  font-family:var(--mono);
+  font-size:10.5px;
+  padding:2px 8px;
+  border-radius:99px;
+  border:1px solid var(--line-strong);
+  color:var(--ink-soft);
+}
+.badge.de{color:var(--accent-ink); border-color:var(--accent);}
+.badge.vua{color:var(--amber); border-color:var(--amber);}
+.badge.kho{color:var(--danger); border-color:var(--danger);}
+.baitap-answer{
+  margin-top:10px;
+  padding:12px 16px;
+  background:var(--accent-soft);
+  border-radius:var(--radius-s);
+  font-size:14.5px;
+  display:none;
+}
+.baitap-answer.show{display:block;}
+
+.empty-state{
+  padding:60px 20px;
+  text-align:center;
+  color:var(--ink-soft);
+  max-width:420px;
+  margin:0 auto;
+}
+.empty-state .big{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:22px;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+/* KaTeX display blocks: let them scroll instead of breaking layout */
+.katex-display{
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:4px 0;
+}
+
+/* ======================================================================
+   RESPONSIVE
+   ====================================================================== */
+.sidebar-scrim{
+  display:none;
+}
+@media (max-width: 880px){
+  .sidebar{
+    position:fixed;
+    left:0; top:0; bottom:0;
+    transform:translateX(-100%);
+    box-shadow: var(--shadow);
+  }
+  body.nav-open .sidebar{transform:translateX(0);}
+  body.nav-open .sidebar-scrim{
+    display:block;
+    position:fixed; inset:0;
+    background:rgba(10,12,16,.4);
+    z-index:35;
+  }
+  .main{padding:16px 18px 60px;}
+  .mobile-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding: env(safe-area-inset-top,0px) 0 14px;
+    margin-bottom:6px;
+    position:sticky;
+    top:0;
+    background:var(--paper);
+    z-index:20;
+  }
+  .mobile-bar button{
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    border-radius:var(--radius-s);
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .mobile-bar .mb-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:16px;
+  }
+  .topic-title{max-width:100%;}
+}
+
+@media (max-width:520px){
+  .tabs{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .tab-btn{margin-right:16px; white-space:nowrap;}
+}
+
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-thumb{background:var(--line-strong); border-radius:99px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
+</style><body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand">
+        <span class="mark">∫</span>
+        <span class="name" id="ten-mon">Toán Chuyên</span>
+      </div>
+      <div class="brand-sub" id="mo-ta">Lý thuyết · Ví dụ · Bài tập</div>
+      <div class="progress-overall">
+        <div class="row"><span>Tiến độ</span><span id="progress-label">0/0 bài</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="Tìm bài học…">
+      </div>
+    </div>
+
+    <nav class="toc" id="toc"></nav>
+
+    <div class="sidebar-foot">
+      <span>Tự học có định hướng</span>
+      <button class="theme-btn" id="theme-btn" type="button">Giao diện</button>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="scrim"></div>
+
+  <main class="main">
+    <div class="mobile-bar">
+      <button id="hamburger" aria-label="Mở danh mục" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <span class="mb-title" id="mb-title">Toán Chuyên</span>
+    </div>
+
+    <div id="content"></div>
+  </main>
+
+</div>
+
+
+    <script src="chuyen-de/01-bat-dang-thuc.js"></script>
+    <script src="chuyen-de/02-so-hoc.js"></script>
+    <script src="chuyen-de/03-hinh-hoc.js"></script>
+    <!-- Thêm chuyên đề mới: tạo file chuyen-de/xx-ten-file.js theo khuôn mẫu,
+         rồi thêm một dòng <script src=...> ở đây, phía trên app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
