@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toán Chuyên · Góc học tập</title>
+<meta name="color-scheme" content="light dark">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+<style>
+/* ======================================================================
+   TOKENS
+   ====================================================================== */
+:root{
+  --paper:#FAF7F0;
+  --surface:#FFFFFF;
+  --ink:#1E2430;
+  --ink-soft:#5B6472;
+  --line:#E4DFD1;
+  --line-strong:#CFC8B4;
+  --accent:#2B5D5E;
+  --accent-ink:#173C3D;
+  --accent-soft:#E4EEEB;
+  --amber:#B8792F;
+  --amber-soft:#F3E8D8;
+  --danger:#A8432E;
+  --grid-line: rgba(43,93,94,0.06);
+  --danger-soft:#F5E4DE;
+  --shadow: 0 1px 2px rgba(30,36,48,0.04), 0 8px 24px -12px rgba(30,36,48,0.15);
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark){
+    --paper:#171A1F;
+    --surface:#1E2229;
+    --ink:#EDEAE0;
+    --ink-soft:#9CA3AF;
+    --line:#2C313A;
+    --line-strong:#3A4048;
+    --accent:#6FB3AC;
+    --accent-ink:#BFE3DD;
+    --accent-soft:#20302E;
+    --amber:#D9A251;
+    --amber-soft:#332A1C;
+    --danger:#E28777;
+    --danger-soft:#3A241E;
+    --grid-line: rgba(111,179,172,0.05);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#171A1F;
+  --surface:#1E2229;
+  --ink:#EDEAE0;
+  --ink-soft:#9CA3AF;
+  --line:#2C313A;
+  --line-strong:#3A4048;
+  --accent:#6FB3AC;
+  --accent-ink:#BFE3DD;
+  --accent-soft:#20302E;
+  --amber:#D9A251;
+  --amber-soft:#332A1C;
+  --danger:#E28777;
+  --danger-soft:#3A241E;
+  --grid-line: rgba(111,179,172,0.05);
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+}
+
+*{box-sizing:border-box;}
+html{scroll-padding-top: env(safe-area-inset-top, 0px);}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ======================================================================
+   LAYOUT
+   ====================================================================== */
+.app{
+  display:flex;
+  min-height:100%;
+}
+
+/* ---- Sidebar ---- */
+.sidebar{
+  width:300px;
+  flex:0 0 300px;
+  background:var(--surface);
+  border-right:1px solid var(--line);
+  height:100vh;
+  height:100dvh;
+  position:sticky;
+  top:0;
+  display:flex;
+  flex-direction:column;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: transform .25s ease;
+  z-index:40;
+}
+.sidebar-head{
+  padding:22px 20px 16px;
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.brand .mark{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:600;
+  font-size:26px;
+  color:var(--accent);
+  line-height:1;
+}
+.brand .name{
+  font-family:var(--serif);
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.2px;
+}
+.brand-sub{
+  margin-top:4px;
+  font-size:12.5px;
+  color:var(--ink-soft);
+}
+.progress-overall{
+  margin-top:14px;
+}
+.progress-overall .row{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-bottom:5px;
+}
+.progress-track{
+  height:5px;
+  border-radius:99px;
+  background:var(--line);
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:99px;
+  transition:width .4s ease;
+}
+
+.search-wrap{
+  padding:14px 20px 6px;
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  padding:8px 10px;
+  background:var(--paper);
+}
+.search-box svg{flex:none; opacity:.5;}
+.search-box input{
+  border:0;
+  outline:0;
+  background:transparent;
+  font-family:var(--sans);
+  font-size:13.5px;
+  color:var(--ink);
+  width:100%;
+}
+.search-box input::placeholder{color:var(--ink-soft);}
+
+/* ---- View switch (Bài học / Điểm danh) ---- */
+.view-switch{
+  margin:14px 20px 4px;
+  display:flex;
+  gap:4px;
+  padding:3px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+}
+.view-btn{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:var(--ink-soft);
+  font-family:var(--sans);
+  font-size:12.5px;
+  font-weight:600;
+  padding:7px 6px;
+  border-radius:calc(var(--radius-s) - 2px);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.view-btn:hover{color:var(--ink);}
+.view-btn.active{
+  background:var(--surface);
+  color:var(--accent-ink);
+  box-shadow: var(--shadow);
+}
+.view-btn-badge{
+  font-family:var(--mono);
+  font-size:9.5px;
+  font-weight:600;
+  color:var(--danger);
+  min-width:14px;
+}
+.view-btn-badge:empty{display:none;}
+
+.toc{
+  flex:1;
+  overflow-y:auto;
+  padding:10px 12px 24px;
+}
+.chuong{
+  margin-bottom:4px;
+}
+.chuong-head{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 8px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:var(--radius-s);
+  text-align:left;
+  font-family:var(--sans);
+  color:var(--ink);
+}
+.chuong-head:hover{background:var(--accent-soft);}
+.chuong-head .chevron{
+  width:14px; height:14px; flex:none;
+  color:var(--ink-soft);
+  transition:transform .18s ease;
+}
+.chuong.open .chevron{transform:rotate(90deg);}
+.chuong-head .ctitle{
+  flex:1;
+  font-size:13.5px;
+  font-weight:600;
+}
+.chuong-head .ccount{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-soft);
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:99px;
+  padding:1px 7px;
+}
+.bai-list{
+  list-style:none;
+  margin:2px 0 8px;
+  padding:0 0 0 28px;
+  display:none;
+  border-left:1px solid var(--line);
+  margin-left:16px;
+}
+.chuong.open .bai-list{display:block;}
+.bai-list li{margin:1px 0;}
+.bai-link{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:var(--radius-s);
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-soft);
+  text-align:left;
+  line-height:1.3;
+}
+.bai-link:hover{background:var(--accent-soft); color:var(--ink);}
+.bai-link.active{
+  background:var(--accent-soft);
+  color:var(--accent-ink);
+  font-weight:600;
+}
+.bai-link .dot{
+  width:7px; height:7px; flex:none; border-radius:99px;
+  border:1.5px solid var(--line-strong);
+  background:transparent;
+}
+.bai-link.done .dot{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.sidebar-foot{
+  padding:12px 20px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  color:var(--ink-soft);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.theme-btn{
+  border:1px solid var(--line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  border-radius:var(--radius-s);
+  padding:5px 8px;
+  cursor:pointer;
+  font-size:11px;
+  font-family:var(--sans);
+}
+
+/* ---- Main ---- */
+.main{
+  flex:1;
+  min-width:0;
+  padding: 28px 40px 80px;
+}
+.mobile-bar{
+  display:none;
+}
+.crumbs{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.crumbs span{color:var(--ink);}
+
+.topic-head{
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.topic-title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(26px, 3.4vw, 36px);
+  line-height:1.15;
+  max-width:640px;
+}
+.topic-title .num{
+  color:var(--accent);
+  font-style:italic;
+  margin-right:10px;
+}
+.done-toggle{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  border-radius:99px;
+  padding:7px 14px 7px 10px;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.done-toggle .dot{
+  width:16px; height:16px; border-radius:99px;
+  border:2px solid var(--line-strong);
+  display:flex; align-items:center; justify-content:center;
+  flex:none;
+}
+.done-toggle.done{
+  border-color:var(--accent);
+  color:var(--accent-ink);
+  background:var(--accent-soft);
+}
+.done-toggle.done .dot{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.done-toggle .dot svg{width:10px;height:10px;opacity:0;}
+.done-toggle.done .dot svg{opacity:1;}
+
+.tabs{
+  display:flex;
+  gap:4px;
+  margin-bottom:26px;
+  border-bottom:1px solid var(--line);
+}
+.tab-btn{
+  border:0;
+  background:transparent;
+  padding:9px 4px;
+  margin-right:22px;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:14.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  position:relative;
+  top:1px;
+}
+.tab-btn .n{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--ink-soft);
+  margin-left:5px;
+}
+.tab-btn.active{
+  color:var(--ink);
+  border-bottom:2px solid var(--accent);
+  font-weight:600;
+}
+
+.panel{display:none;}
+.panel.active{display:block; animation: fadein .22s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:translateY(0);}}
+
+/* ---- Lý thuyết ---- */
+.ly-thuyet{
+  max-width:760px;
+  font-size:16px;
+  line-height:1.75;
+}
+.ly-thuyet p{margin:0 0 16px;}
+.lt-panel{
+  display:none;
+  max-width:760px;
+}
+.lt-panel.active{display:block; animation: fadein .22s ease;}
+.block{
+  margin: 0;
+}
+.block-label{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:8px;
+  font-weight:500;
+}
+.block.dinhnghia, .block.dinhly{
+  border:1px solid var(--line-strong);
+  border-left:4px solid var(--accent);
+  border-radius:0 var(--radius-m) var(--radius-m) 0;
+  padding:18px 22px;
+  background:var(--surface);
+  box-shadow: var(--shadow);
+}
+.block.dinhnghia .block-label{color:var(--ink-soft);}
+.block.dinhly .block-title, .block.dinhnghia .block-title{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:20px;
+  line-height:1.3;
+  margin-bottom:10px;
+  color:var(--accent-ink);
+}
+.block.luuy{
+  border-left:4px solid var(--amber);
+  background:var(--amber-soft);
+  padding:16px 20px;
+  border-radius:0 var(--radius-m) var(--radius-m) 0;
+  font-size:15px;
+}
+.block.luuy .block-label{color:var(--amber);}
+.block.luuy .block-title{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:8px;
+  color:var(--ink);
+}
+.block.text .block-title,
+.block.text > p:first-child strong,
+.block.text > p:first-child b{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:20px;
+  color:var(--accent-ink);
+  display:block;
+  margin-bottom:12px;
+  line-height:1.3;
+}
+.block > :last-child{margin-bottom:0;}
+
+
+/* ---- Ví dụ ---- */
+.sub-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:16px;
+}
+.sub-tab{
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--ink-soft);
+  border-radius:99px;
+  padding:6px 14px;
+  font-family:var(--sans);
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.sub-tab:hover{background:var(--accent-soft); color:var(--ink);}
+.sub-tab.active{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+
+.vidu{
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  background:var(--surface);
+  display:none;
+}
+.vidu.active{display:block; animation: fadein .22s ease;}
+.vidu-head{
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+}
+.vidu-head .ten{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:16px;
+}
+.vidu-body{padding:18px 20px; font-size:15.5px; line-height:1.7;}
+.vidu-de{margin-bottom:2px;}
+.reveal-btn{
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:var(--accent-ink);
+  border-radius:99px;
+  padding:6px 14px;
+  font-family:var(--sans);
+  font-size:12.5px;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.reveal-btn:hover{background:var(--accent-soft);}
+.loigiai{
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px dashed var(--line-strong);
+  display:none;
+}
+.loigiai.show{display:block;}
+.loigiai .tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--amber);
+  margin-bottom:10px;
+}
+.loigiai-layout{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+}
+.loigiai-text{
+  flex:1;
+  min-width:0;
+  font-size:15.5px;
+  line-height:1.7;
+}
+.loigiai-text > p:first-child{margin-top:0;}
+.loigiai-fig{
+  flex:0 0 280px;
+  width:280px;
+  position:sticky;
+  top:16px;
+}
+@media (max-width:720px){
+  .loigiai-layout{flex-direction:column;}
+  .loigiai-fig{flex:none; width:100%; position:static;}
+}
+
+.img-placeholder{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:0;
+  padding:16px;
+  border:2px dashed var(--line-strong);
+  border-radius:var(--radius-m);
+  background:var(--paper);
+  color:var(--ink-soft);
+  text-align:center;
+  min-height:180px;
+  position:relative;
+  transition: border-color .2s, background .2s;
+  width:100%;
+  box-sizing:border-box;
+}
+.img-placeholder:hover,
+.img-placeholder.dragover{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+}
+.img-placeholder.has-image{
+  border-style:solid;
+  padding:10px;
+  min-height:0;
+}
+.img-placeholder .ph-empty{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  pointer-events:none;
+}
+.img-placeholder.has-image .ph-empty{display:none;}
+.img-placeholder .ph-icon{font-size:28px; line-height:1;}
+.img-placeholder .ph-title{font-size:14px; font-weight:500; color:var(--ink);}
+.img-placeholder .ph-hint{font-size:11.5px; opacity:.75;}
+.img-placeholder .ph-preview{
+  display:none;
+  width:100%;
+}
+.img-placeholder.has-image .ph-preview{display:block;}
+.img-placeholder .ph-preview img{
+  max-width:100%;
+  height:auto;
+  border-radius:var(--radius-s);
+  display:block;
+  margin:0 auto;
+}
+.img-placeholder .ph-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin-top:4px;
+}
+.img-placeholder .ph-btn{
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--ink);
+  border-radius:99px;
+  padding:6px 12px;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:500;
+  cursor:pointer;
+}
+.img-placeholder .ph-btn:hover{background:var(--accent-soft); border-color:var(--accent);}
+.img-placeholder .ph-btn.danger{color:var(--danger); border-color:var(--danger);}
+.img-placeholder .ph-btn.danger:hover{background:rgba(168,67,46,.08);}
+.img-placeholder input[type="file"]{display:none;}
+.loigiai img, .vidu-body img{
+  max-width:100%;
+  height:auto;
+  border-radius:var(--radius-s);
+  margin:12px 0;
+  display:block;
+}
+
+
+
+
+/* ---- Bài tập ---- */
+.baitap{
+  display:none;
+  gap:14px;
+  padding:18px 20px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  background:var(--surface);
+  box-shadow: var(--shadow);
+  max-width:760px;
+}
+.baitap.active{display:flex; animation: fadein .22s ease;}
+.baitap .idx{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:20px;
+  color:var(--accent);
+  flex:none;
+  width:28px;
+  line-height:1.4;
+}
+.baitap-content{flex:1; min-width:0;}
+.baitap-de{font-size:15.5px; line-height:1.7;}
+.baitap-de > p:last-child{margin-bottom:0;}
+.baitap-meta{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  align-items:center;
+}
+.baitap-answer{
+  margin-top:12px;
+  padding:12px 16px;
+  background:var(--accent-soft);
+  border-radius:var(--radius-s);
+  font-size:14.5px;
+  display:none;
+}
+.baitap-answer.show{display:block;}
+
+
+
+.empty-state{
+  padding:60px 20px;
+  text-align:center;
+  color:var(--ink-soft);
+  max-width:420px;
+  margin:0 auto;
+}
+.empty-state .big{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:22px;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+/* ---- Điểm danh ---- */
+.dd-sessions{margin-bottom:20px;}
+.dd-stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:22px;
+  max-width:760px;
+}
+.dd-stat{
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  background:var(--surface);
+  padding:14px 16px;
+  box-shadow: var(--shadow);
+}
+.dd-stat-num{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:26px;
+  line-height:1.1;
+  color:var(--ink);
+}
+.dd-stat.present .dd-stat-num{color:var(--accent-ink);}
+.dd-stat.absent .dd-stat-num{color:var(--danger);}
+.dd-stat-label{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--ink-soft);
+}
+.dd-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  max-width:760px;
+}
+.dd-search{
+  flex:1 1 220px;
+  min-width:180px;
+}
+.dd-select{
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  padding:8px 10px;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:13px;
+}
+.dd-status-chips{
+  display:flex;
+  gap:6px;
+}
+.dd-chip{
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--ink-soft);
+  border-radius:99px;
+  padding:6px 13px;
+  font-family:var(--sans);
+  font-size:12.5px;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.dd-chip:hover{background:var(--accent-soft); color:var(--ink);}
+.dd-chip.active{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.dd-table-wrap{
+  max-width:760px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  background:var(--surface);
+  box-shadow: var(--shadow);
+}
+.dd-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+.dd-table thead th{
+  text-align:left;
+  font-family:var(--mono);
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--ink-soft);
+  font-weight:500;
+  padding:10px 16px;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.dd-table th.stt, .dd-table td.stt{width:52px; text-align:center;}
+.dd-table th.status, .dd-table td.status{width:120px; text-align:right;}
+.dd-table td{
+  padding:10px 16px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+}
+.dd-table tbody tr:last-child td{border-bottom:0;}
+.dd-table tbody tr:hover{background:var(--accent-soft);}
+.dd-table tbody tr.row-absent{background:var(--danger-soft);}
+.dd-table tbody tr.row-absent:hover{background:var(--danger-soft);}
+.dd-empty{
+  text-align:center;
+  color:var(--ink-soft);
+  padding:28px 16px !important;
+}
+.dd-status-btn{
+  border:1px solid var(--line-strong);
+  border-radius:99px;
+  padding:5px 12px;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.dd-status-btn.present{
+  background:var(--accent-soft);
+  border-color:var(--accent);
+  color:var(--accent-ink);
+}
+.dd-status-btn.absent{
+  background:transparent;
+  border-color:var(--danger);
+  color:var(--danger);
+}
+@media (max-width:640px){
+  .dd-stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .dd-table th.status, .dd-table td.status{width:auto;}
+}
+
+/* KaTeX display blocks: let them scroll instead of breaking layout */
+.katex-display{
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:4px 0;
+}
+
+/* ======================================================================
+   RESPONSIVE
+   ====================================================================== */
+.sidebar-scrim{
+  display:none;
+}
+@media (max-width: 880px){
+  .sidebar{
+    position:fixed;
+    left:0; top:0; bottom:0;
+    transform:translateX(-100%);
+    box-shadow: var(--shadow);
+  }
+  body.nav-open .sidebar{transform:translateX(0);}
+  body.nav-open .sidebar-scrim{
+    display:block;
+    position:fixed; inset:0;
+    background:rgba(10,12,16,.4);
+    z-index:35;
+  }
+  .main{padding:16px 18px 60px;}
+  .mobile-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding: env(safe-area-inset-top,0px) 0 14px;
+    margin-bottom:6px;
+    position:sticky;
+    top:0;
+    background:var(--paper);
+    z-index:20;
+  }
+  .mobile-bar button{
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    border-radius:var(--radius-s);
+    width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .mobile-bar .mb-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:16px;
+  }
+  .topic-title{max-width:100%;}
+}
+
+@media (max-width:520px){
+  .tabs{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .tab-btn{margin-right:16px; white-space:nowrap;}
+}
+
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-thumb{background:var(--line-strong); border-radius:99px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand">
+        <span class="mark">∫</span>
+        <span class="name" id="ten-mon">Toán Chuyên</span>
+      </div>
+      <div class="brand-sub" id="mo-ta">Lý thuyết · Ví dụ · Bài tập</div>
+      <div class="progress-overall">
+        <div class="row"><span>Tiến độ</span><span id="progress-label">0/0 bài</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <div class="view-switch" id="view-switch">
+      <button class="view-btn active" data-view="hoc" type="button">Bài học</button>
+      <button class="view-btn" data-view="diemdanh" type="button">
+        Điểm danh
+        <span class="view-btn-badge" id="dd-nav-badge"></span>
+      </button>
+    </div>
+
+    <div class="search-wrap" id="search-wrap">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="text" placeholder="Tìm bài học…">
+      </div>
+    </div>
+
+    <nav class="toc" id="toc"></nav>
+
+    <div class="sidebar-foot">
+      <span>Tự học có định hướng</span>
+      <button class="theme-btn" id="theme-btn" type="button">Giao diện</button>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="scrim"></div>
+
+  <main class="main">
+    <div class="mobile-bar">
+      <button id="hamburger" aria-label="Mở danh mục" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <span class="mb-title" id="mb-title">Toán Chuyên</span>
+    </div>
+
+    <div id="content"></div>
+  </main>
+
+</div>
+
+<script>
+/* ============================================================
+   DỮ LIỆU CHUYÊN ĐỀ (nhúng trực tiếp)
+   ============================================================ */
+window.DATA_CHUONGS = window.DATA_CHUONGS || [];
+
+/* ---- Số học ---- */
+window.DATA_CHUONGS.push({
+  id: "sohoc",
+  ten: "Số học",
+  bais: [
+    {
+      id: "chiahet",
+      ten: "Chia hết và đồng dư",
+      lyThuyet: [
+        {
+          loai: "dinhnghia",
+          tieuDe: "Quan hệ đồng dư",
+          noiDung: String.raw`Cho $m$ là số nguyên dương. Ta nói $a$ đồng dư với $b$ theo modulo $m$, ký hiệu $a \equiv b \pmod{m}$, nếu $m \mid (a-b)$.`
+        },
+        {
+          loai: "text",
+          noiDung: String.raw`Đồng dư thức có các tính chất tương tự đẳng thức: có thể cộng, trừ, nhân hai đồng dư thức cùng modulo. Đây là công cụ chủ lực để xét tính chia hết, tìm số dư của các biểu thức lớn, và giải phương trình nghiệm nguyên.`
+        },
+        {
+          loai: "luuy",
+          noiDung: String.raw`Khi cần tính số dư của một lũy thừa lớn, hãy tìm **chu kỳ lặp** của các số dư liên tiếp thay vì tính trực tiếp.`
+        }
+      ],
+      viDus: [
+        {
+          ten: "Ví dụ 1",
+          de: String.raw`Tìm số dư của $7^{100}$ khi chia cho $5$.`,
+          loiGiai: String.raw`Ta có $7 \equiv 2 \pmod 5$, nên $7^{100} \equiv 2^{100} \pmod 5$.
+Xét chu kỳ của $2^k \pmod 5$: $2^1{=}2,\ 2^2{=}4,\ 2^3{\equiv}3,\ 2^4{\equiv}1$, chu kỳ độ dài $4$.
+Vì $100 = 4\times 25$ nên $2^{100} \equiv (2^4)^{25} \equiv 1^{25} \equiv 1 \pmod 5$.
+Vậy $7^{100}$ chia $5$ dư $1$.`
+        }
+      ],
+      baiTaps: [
+        {
+          de: String.raw`Chứng minh rằng $n^3 - n$ chia hết cho $6$ với mọi số nguyên $n$.`,
+          doKho: "de",
+          dapAn: String.raw`$n^3-n = n(n-1)(n+1)$ là tích ba số nguyên liên tiếp nên chia hết cho $3!=6$.`
+        },
+        {
+          de: String.raw`Tìm hai chữ số tận cùng của $3^{2024}$.`,
+          doKho: "kho",
+          dapAn: ""
+        }
+      ]
+    }
+  ]
+});
+
+/* ---- Hình học (đã chuyển sang định dạng chuẩn) ---- */
+window.DATA_CHUONGS.push({
+  id: "hinh-hoc",
+  ten: "Hình học",
+  bais: [
+    {
+      id: "phuong-tich-truc-dang-phuong",
+      ten: "Phương tích, trục đẳng phương và tâm đẳng phương",
+      lyThuyet: [
+        {
+          loai: "text",
+          noiDung: String.raw`**Phương tích của một điểm đối với đường tròn**`
+        },
+        {
+          loai: "dinhnghia",
+          tieuDe: "Định nghĩa 1 (Power)",
+          noiDung: String.raw`Phương tích của điểm $M$ đối với đường tròn $\omega$ có tâm $O$ và bán kính $R$, kí hiệu $\mathscr{P}_{M/\omega}$, được định nghĩa là giá trị
+$$\mathscr{P}_{M/\omega}=OM^{2}-R^{2}.$$`
+        },
+        {
+          loai: "dinhly",
+          tieuDe: "Định lý 1",
+          noiDung: String.raw`Cho đường tròn $\omega$ có tâm $O$ và bán kính $R$ và điểm $M$.
+1. Phương tích $\mathscr{P}_{M/\omega}$ nhận giá trị dương, âm hay bằng không phụ thuộc vào vị trí của $M$ nằm bên ngoài, bên trong hay thuộc đường tròn.
+2. Từ $M$ nằm ngoài đường tròn kẻ tiếp tuyến $MA$ đến $(O)$ ($A$ là tiếp điểm) thì $\mathscr{P}_{M/\omega}=MA^{2}$.
+3. Nếu một đường thẳng đi qua $M$ cắt đường tròn tại hai điểm $X,Y$ thì $\mathscr{P}_{M/\omega}=\overline{MX}\cdot\overline{MY}$.
+4. Nếu $AB$ là một đường kính bất kì thì $\mathscr{P}_{M/\omega}=\overrightarrow{MA}\cdot\overrightarrow{MB}$.`
+        },
+        {
+          loai: "dinhly",
+          tieuDe: "Định lý 2",
+          noiDung: String.raw`Xét $A,B,C,D$ là bốn điểm phân biệt và đường thẳng $AB$ cắt đường thẳng $CD$ tại $P$. Khi đó bốn điểm $A,B,C,D$ cùng thuộc một đường tròn khi và chỉ khi
+$$\overline{PA}\cdot\overline{PB}=\overline{PC}\cdot\overline{PD}.$$`
+        },
+        {
+          loai: "text",
+          noiDung: String.raw`**Trục đẳng phương, tâm đẳng phương**`
+        },
+        {
+          loai: "dinhnghia",
+          tieuDe: "Định nghĩa 2 (Radical axis)",
+          noiDung: String.raw`Trục đẳng phương của hai đường tròn $(O_1),(O_2)$ ($O_1$ không trùng $O_2$) là tập hợp các điểm $M$ thỏa mãn
+$$\mathscr{P}_{M/(O_1)} = \mathscr{P}_{M/(O_2)}.$$`
+        },
+        {
+          loai: "dinhly",
+          tieuDe: "Định lý 3",
+          noiDung: String.raw`Trục đẳng phương của hai đường tròn $(O_1),(O_2)$ ($O_1$ không trùng $O_2$) là đường thẳng vuông góc với đoạn $O_1O_2$. Nếu hai đường tròn này cắt nhau tại $A,B$ thì đường thẳng qua $A,B$ chính là trục đẳng phương của hai đường tròn.`
+        },
+        {
+          loai: "dinhnghia",
+          tieuDe: "Định nghĩa 3 (Radical center)",
+          noiDung: String.raw`Cho ba đường tròn có tâm không thẳng hàng. Trục đẳng phương của 3 cặp đường tròn đó đồng quy tại một điểm, điểm đó được gọi là tâm đẳng phương của 3 đường tròn.`
+        },
+        {
+          loai: "luuy",
+          noiDung: String.raw`**Hệ quả 1:** Cho hai đường tròn không đồng tâm $(O_1),(O_2)$. Các điểm $A,B$ thuộc $(O_1)$, $C,D$ thuộc $(O_2)$. Khi đó các phát biểu sau là tương đương:
+(i) Các điểm $A,B,C,D$ cùng thuộc một đường tròn tâm $O_3$ không trùng với $O_1,O_2$.
+(ii) Giao điểm của $AB$ và $CD$ thuộc trục đẳng phương của $(O_1)$ và $(O_2)$.`
+        }
+      ],
+      viDus: [
+        {
+          ten: "Ví dụ 1 (Định lí Euler)",
+          de: String.raw`Cho $R,r$ lần lượt là bán kính đường tròn ngoại tiếp và nội tiếp của một tam giác. Khi đó, khoảng cách $d$ giữa hai tâm của hai đường tròn này là $\sqrt{R(R-2r)}$.`,
+          loiGiai: String.raw`Xét tam giác $ABC$ có tâm đường tròn nội tiếp và ngoại tiếp lần lượt là $I,O$.
+Tia $BI$ cắt đường tròn tại $M$, $MK$ là đường kính. $ID$ vuông góc với $BC$ tại $D$.
+
+<div class="img-placeholder" data-img-slot="euler-1"></div>
+
+Để tính khoảng cách giữa $I$ và $O$, ta tính phương tích của $I$ so với $(O)$.
+
+Trước tiên, ta lưu ý rằng tam giác $MIC$ có
+$$\angle MIC=\angle MCI=\dfrac{\angle B+\angle C}{2}$$
+nên tam giác này cân tại $M$ và suy ra $MI=MC$.
+
+Do $\triangle IDB \sim \triangle MCK$ đồng dạng nên suy ra
+$$BI\cdot MC=MK \cdot ID.$$
+
+Rõ ràng $$BI\cdot MC=BI\cdot IM=-\overline{IB}\cdot\overline{IM}=-\mathscr{P}_{I/(O)}=R^2-OI^2$$
+và $MK\cdot ID=2R\cdot r$ nên ta suy ra
+$$OI^2=R^2-2Rr.$$
+
+Vậy $d=OI=\sqrt{R(R-2r)}$. $\square$`
+        },
+        {
+          ten: "Ví dụ 2 (USAMO 1990)",
+          de: String.raw`Cho tam giác $ABC$ nhọn. Đường thẳng qua $B$, vuông góc với $AC$ cắt đường tròn đường kính $AC$ tại $P,Q$. Đường thẳng qua $C$, vuông góc với $AB$ cắt đường tròn đường kính $AB$ tại $R,S$. Chứng minh $P,Q,R,S$ cùng thuộc một đường tròn.`,
+          loiGiai: String.raw`<div class="img-placeholder" data-img-slot="usamo-1990"></div>
+
+Gọi $K$ là giao điểm thứ hai của hai đường tròn. $J$ là giao điểm của $CR$ và $BP$. Khi đó do $J$ là trực tâm nên rõ ràng $A,J,K$ thẳng hàng.
+
+Khi đó, ta có
+$$\overline{JQ}\cdot\overline{JP}=\mathscr{P}_{J/(AKC)}=\overline{JA}\cdot\overline{JK}$$
+$$\overline{JR}\cdot\overline{JS}=\mathscr{P}_{J/(AKB)}=\overline{JA}\cdot\overline{JK}$$
+nên suy ra
+$$\overline{JQ}\cdot\overline{JP}=\overline{JR}\cdot\overline{JS}.$$
+
+Từ đó rõ ràng $4$ điểm $P,Q,R,S$ cùng thuộc một đường tròn. $\square$`
+        },
+        {
+          ten: "Ví dụ 3",
+          de: String.raw`Cho đường tròn tâm $(O)$ và dây cung $BC$ cố định ($BC$ khác đường kính). Điểm $A$ di chuyển trên đường tròn sao cho tam giác $ABC$ không phải là tam giác cân tại $A$. Tiếp tuyến tại $A$ của đường tròn cắt $BC$ tại $E$. Đường tròn ngoại tiếp tam giác $AOE$ cắt $(O)$ tại điểm thứ hai là $F$. Chứng minh rằng $AF$ luôn đi qua một điểm cố định khi $A$ di chuyển.`,
+          loiGiai: String.raw`<div class="img-placeholder" data-img-slot="vd3-fixed-point"></div>
+
+Gọi $D$ là trung điểm của $BC$. Khi đó ta có $D \in (AOE)$. Gọi $T$ là giao điểm của $AF$ và $OD$. Ta sẽ chứng minh $T$ là điểm cố định.
+
+Ta có
+$$\overline{TD}\cdot\overline{TO}=\mathscr{P}_{T/(AOE)}=\overline{TF}\cdot\overline{TA}=\mathscr{P}_{T/(ABC)}=OT^2-OC^2.$$
+
+Suy ra
+$$OC^2=OT^2-\overline{TD}\cdot\overline{TO}=\overline{TO}\cdot\overline{DO}$$
+nên $T$ cố định. $\square$`
+        },
+        {
+          ten: "Ví dụ 4 (CPS Match 2024)",
+          de: String.raw`Cho tứ giác $ABCD$ sao cho $AB=BC=CD$. Các điểm $X,Y$ lần lượt nằm trên các tia $CA,BD$ sao cho $BX=CY$. Gọi $P,Q,R,S$ lần lượt là trung điểm của các đoạn thẳng $BX,CY,XD,YA$. Chứng minh rằng các điểm $P,Q,R,S$ cùng thuộc một đường tròn.`,
+          loiGiai: String.raw`<div class="img-placeholder" data-img-slot="cps-2024"></div>
+
+Gọi $M$ là trung điểm của $XY$. Nhận thấy $PR$ là đường trung bình trong các tam giác $XBD$ và $XBY$, do đó $M$ nằm trên $PR$. Tương tự, $M$ cũng nằm trên $QS$.
+
+Gọi $\omega_1$ là đường tròn tâm $B$ bán kính $AB=BC$ và $\omega_2$ là đường tròn tâm $C$ bán kính $BC=CD$.
+
+Khoảng cách từ $X$ đến tâm của $\omega_1$ bằng khoảng cách từ $Y$ đến tâm của $\omega_2$, đồng thời $\omega_1$ và $\omega_2$ có cùng bán kính, nên phương tích của $X$ đối với $\omega_1$ bằng phương tích của $Y$ đối với $\omega_2$. Do đó
+$$XA\cdot XC=YD\cdot YB.$$
+
+Áp dụng các phép vị tự tâm $X$ và tâm $Y$, ta suy ra $MS\cdot MQ=MR\cdot MP$, và vì vậy bốn điểm $P,Q,R,S$ cùng nằm trên một đường tròn. $\square$`
+        },
+        {
+          ten: "Ví dụ 5 (Olympiad Iran 2025)",
+          de: String.raw`Cho tam giác $ABC$ nhọn, có ba cạnh đôi một khác nhau. Đường phân giác trong của góc $A$ cắt cạnh đối diện $BC$ tại $E$ và cắt cung nhỏ $BC$ của đường tròn ngoại tiếp tam giác $ABC$ tại $M$. Giả sử $D\neq M$ là một điểm trên cung nhỏ $BC$ sao cho $ED=EM$. Ngoài ra, gọi $P$ là một điểm trên đoạn thẳng $AD$ sao cho $\angle ABP=\angle ACP\neq 0$. Gọi $O$ là tâm đường tròn ngoại tiếp tam giác $ABC$. Chứng minh rằng $OP\perp AM$.`,
+          loiGiai: String.raw`<div class="img-placeholder" data-img-slot="iran-2025"></div>
+
+Từ $O$, kẻ đường vuông góc với $AM$ cắt $AD$ và $BC$ lần lượt tại $P'$ và $X$. Vì $O$ và $E$ đều nằm trên đường trung trực của $MD$ nên $OE\perp MD$. Vì $E$ là trực tâm của $\triangle OXM$ (điều này suy ra $XE\perp OM$, $ME\perp OX$ và $OE\perp XM$), và ta có $OE\perp MD$, nên $XM$ và $MD$ là cùng một đường thẳng. Do đó $X$, $M$, $D$ thẳng hàng. Vậy ta có:
+$$XP'\cdot XO=XD\cdot XM.$$
+Ngoài ra, $XD\cdot XM=XB\cdot XC$. Suy ra $XP'\cdot XO=XB\cdot XC$. Điều này chứng tỏ tứ giác $OP'BC$ nội tiếp. Do đó:
+$$\angle P'BC = 180^\circ - \angle P'OC$$
+$$= 180^\circ - (\angle P'OM + \angle MOC)$$
+$$= 180^\circ - \bigl(90^\circ - \dfrac{B-C}{2} + \angle A\bigr)$$
+$$= 90^\circ + \dfrac{B-C}{2} - \angle A.$$
+$$\Rightarrow \angle P'BO = \angle P'BC - (90^\circ - \angle A) = \dfrac{B-C}{2}.$$
+$$\Rightarrow \angle P'BA = \angle OBA - \angle OBP' = (90^\circ - C) - \dfrac{B-C}{2} = (90^\circ - B) + \dfrac{B-C}{2} = \angle P'CA.$$
+
+
+
+Bây giờ ta chứng minh điểm $P$ trên $AD$ là duy nhất.
+
+Giả sử phản chứng rằng điều này không đúng, và tồn tại hai điểm phân biệt $Y$ và $Z$ trên $AD$ ($Y\neq Z$) sao cho $\angle YBA=\angle YCA$ và $\angle ZBA=\angle ZCA$. Khi đó ta có:
+$$\frac{ZY}{YA}=\frac{BZ}{BA}\cdot\frac{\sin\angle ZBY}{\sin\angle YBA}=\frac{CZ}{CA}\cdot\frac{\sin\angle ZCY}{\sin\angle YCA}.$$
+Biết rằng $\angle YBA=\angle YCA$ và $\angle ZBA=\angle ZCA$. Nếu giả sử thêm $\angle ZBY=\angle ZCY$ thì:
+$$\frac{BZ}{BA}=\frac{CZ}{CA}\Leftrightarrow\frac{BZ}{CZ}=\frac{BA}{CA}.$$
+Vậy $Z$ (và tương tự $Y$) nằm trên đường tròn Apollonius ứng với đỉnh $A$ và đoạn $BC$ (quỹ tích các điểm $K$ thỏa $KB/KC=AB/AC$). Vì $Y$, $Z$ nằm trên $AD$ và cũng nằm trên đường tròn Apollonius này, ta dẫn đến mâu thuẫn nếu $Y$, $Z\neq A$ và $AD$ không trùng với đường tròn Apollonius đó. (Lưu ý rằng $Y\neq A$ và $Z\neq A$. Ngoài ra, nếu một trong hai điểm nằm trên $BC$ thì suy ra $AB=AC$, mâu thuẫn với giả thiết bài toán khi $AB\neq AC$.)
+
+Do đó $P\equiv P'$ và chứng minh hoàn tất. $\square$`
+        }
+      ],
+      baiTaps: [
+        {
+          de: String.raw`Cho tam giác $ABC$ có $H$ là trực tâm. Tính khoảng cách từ $H$ đến $O$ (tâm đường tròn ngoại tiếp) theo $R$ và:
+(a) Các cạnh $BC=a$, $CA=b$, $AB=c$.
+(b) Các góc $A$, $B$, $C$.`,
+          doKho: "vua",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ và điểm $P$ thỏa mãn
+$$\alpha\overrightarrow{PA}+\beta\overrightarrow{PB}+\gamma\overrightarrow{PC}=\overrightarrow{0}$$
+trong đó $\alpha,\beta,\gamma$ là các số thực. Tính phương tích của điểm $P$ đối với đường tròn ngoại tiếp tam giác $ABC$ theo $\alpha,\beta,\gamma$ và độ dài ba cạnh của tam giác $ABC$.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ cân tại $A$ có $\widehat{BAC}=20^{\circ}$. $D$ là điểm trên cạnh $BC$ sao cho $DC=2BD$. Gọi $E$ là hình chiếu vuông góc của $C$ lên $AD$. Tính số đo góc $\widehat{AEB}$.`,
+          doKho: "vua",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho $C$ thuộc nửa đường tròn đường kính $AB$. Gọi $D$ là điểm giữa của cung $AC$ và $E$ là hình chiếu vuông góc của $D$ lên $BC$. Gọi $F$ là giao điểm của $AE$ và nửa đường tròn. Chứng minh rằng $BF$ là đường trung tuyến của tam giác $BED$.`,
+          doKho: "vua",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tứ giác $ABCD$ nội tiếp với $ABC$ là tam giác nhọn. Trên $AB$, $BC$ lần lượt lấy $E$, $F$ sao cho $EBFD$ là hình bình hành. Chứng minh rằng
+$$BF\cdot BC+BE\cdot BA=BD^2.$$`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ có $AD$ là đường phân giác trong, $D$ thuộc $BC$. Đường tròn qua $A$ tiếp xúc với $BC$ tại $D$ cắt $AC$ tại $M$. Gọi $P$ là giao điểm thứ hai của $BM$ và đường tròn. Tia $AP$ cắt $BC$ tại $J$. Chứng minh rằng $J$ là trung điểm của $BD$.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Gọi $M$ là giao điểm của hai đường chéo $AC$, $BD$ của tứ giác lồi $ABCD$. Đường phân giác của góc $\widehat{ACD}$ cắt tia $BA$ tại $K$. Giả sử $MA\cdot MC+MA\cdot CD=MB\cdot MD$. Chứng minh rằng tứ giác $BCDK$ nội tiếp.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ nội tiếp đường tròn $(O)$ có ba đường cao $AD$, $BE$, $CF$ và $G$ là trọng tâm. Tia $AG$, $GD$ cắt đường tròn tại điểm thứ hai lần lượt là $M$, $N$. Chứng minh rằng $M$, $N$, $E$, $F$ cùng thuộc một đường tròn.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho hai điểm $A$, $B$ cố định, $C$ là điểm bất kì trên nửa mặt phẳng có bờ là đường thẳng $AB$. Dựng về phía ngoài của tam giác $ABC$ các tam giác đều $ADC$, $BCE$. Gọi $P$ là giao điểm thứ hai của $(ADC)$ và $(BCE)$. Chứng minh rằng $CP$ luôn đi qua một điểm cố định.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ cân tại $B$ nội tiếp trong đường tròn đường kính $BD$. Trên tia $CA$ lấy điểm $E$ và các điểm $F$, $G$ lần lượt thuộc tia $CB$, $BA$ sao cho $EG$ song song với $BC$ và $EF$ song song với $AB$. Chứng minh rằng $DE$ vuông góc với $FG$.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho hai đường tròn $(O_1)$, $(O_2)$ cắt nhau tại $A$, $B$. Chứng minh rằng với $k$ là hằng số thì quỹ tích của điểm $M$ thỏa mãn $|\mathscr{P}_{M/(O_1)}|=k|\mathscr{P}_{M/(O_2)}|$ là đường tròn đi qua $A$, $B$.`,
+          doKho: "vua",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ nội tiếp đường tròn tâm $O$ có $H$ là trực tâm, các đường cao $BE$, $CF$, $AD$. $FD$ cắt $BE$ tại $M$, $FC$ cắt $DE$ tại $N$. Cho $K$ là điểm đối xứng của $O$ qua $BC$. Chứng minh rằng $MN$ vuông góc với $AK$.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ và $P$, $Q$ lần lượt là các điểm trên cạnh $AB$, $AC$ sao cho $AP=AQ$. Trên đoạn $BC$ lấy hai điểm $S$, $R$ phân biệt sao cho $S$ nằm giữa $B$, $R$ và $\widehat{BPS}=\widehat{PRS}$, $\widehat{CQR}=\widehat{QSR}$. Chứng minh rằng $P$, $Q$, $R$, $S$ cùng thuộc một đường tròn.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ có $H$ là trực tâm, $D$, $E$, $F$ lần lượt là trung điểm của $BC$, $CA$, $AB$. Đường tròn tâm $D$ đi qua $H$ cắt $BC$ tại $A_1$, $A_2$. Định nghĩa tương tự cho các điểm $B_1$, $B_2$, $C_1$, $C_2$. Chứng minh rằng các điểm $A_1$, $A_2$, $B_1$, $B_2$, $C_1$, $C_2$ cùng thuộc một đường tròn.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ vuông tại $C$, đường cao $CC_0$. Lấy $X$ trên đoạn $CC_0$, trên đoạn $AX$, $BX$ lần lượt lấy các điểm $K$, $L$ sao cho $BK=BC$ và $AL=AC$. Gọi $M$ là giao điểm của $BK$, $AL$. Chứng minh rằng $MK=ML$.`,
+          doKho: "vua",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác nhọn $ABC$ trực tâm $H$, đường cao $CM$, $BN$. Lấy $W$ trên $BC$. Dựng đường tròn ngoại tiếp tam giác $CNW$ đường kính $WX$ và đường tròn ngoại tiếp tam giác $WMB$ đường kính $WY$. Chứng minh rằng $X$, $Y$, $H$ thẳng hàng.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác nhọn $ABC$ ($BA>BC$) nội tiếp đường tròn tâm $O$. Tia phân giác trong góc $B$ cắt đường tròn $(O)$ tại $M$. Đường tròn đường kính $BM$ cắt các tia phân giác $\widehat{AOB}$, $\widehat{BOC}$ lần lượt tại $P$, $Q$. Trên $PQ$ lấy điểm $R$ sao cho $RB=RM$. Chứng minh rằng $BR$ song song với $AC$.`,
+          doKho: "kho",
+          dapAn: ""
+        },
+        {
+          de: String.raw`Cho tam giác $ABC$ có độ dài ba cạnh đôi một khác nhau, nội tiếp đường tròn $\Gamma$. Gọi $M$ là trung điểm $BC$ và $P$ là một điểm trên đoạn $AM$. Các đường tròn $(BPM)$ và $(CPM)$ lần lượt cắt $\Gamma$ tại điểm thứ hai là $D$, $E$. Đường thẳng $DP$ và $EP$ cắt các đường tròn $(CPM)$, $(BPM)$ lần lượt tại điểm thứ hai là $X$, $Y$. Chứng minh rằng khi $P$ di chuyển trên đoạn $AM$, đường tròn $(AXY)$ luôn đi qua một điểm cố định khác $A$.`,
+          doKho: "kho",
+          dapAn: ""
+        }
+      ]
+    }
+  ]
+});
+</script>
+
+
+
+
+<script>
+/* ======================================================================
+   ỨNG DỤNG — logic hiển thị dùng chung.
+   ====================================================================== */
+
+const THONG_TIN_TRANG = {
+  monHoc: "Toán Chuyên",
+  moTa: "Chuyên đề Đại số · Số học · Hình học"
+};
+
+/* ---- Điểm danh ---- */
+window.DATA_DIEMDANH = window.DATA_DIEMDANH || [];
+window.DATA_DIEMDANH.push({
+  id: "2026-09-22",
+  ngay: "22/09/2026",
+  ghiChu: "Buổi học đội tuyển Toán 10",
+  danhSach: [
+        {stt:1, ho:"Nguyễn Minh", ten:"Huy", lop:"10T", comat:false},
+        {stt:2, ho:"Nguyễn Đỗ Tuấn", ten:"Minh", lop:"10TN8", comat:true},
+        {stt:3, ho:"Nguyễn Thành Đạt", ten:"Henri", lop:"10 Tin", comat:true},
+        {stt:4, ho:"Huỳnh Châu Thanh", ten:"Vy", lop:"10TN1", comat:true},
+        {stt:5, ho:"Nguyễn Quốc", ten:"Kiệt", lop:"10 Toán", comat:true},
+        {stt:6, ho:"Bùi Minh", ten:"Huy", lop:"10 Toán", comat:true},
+        {stt:7, ho:"Lê Lý Thanh", ten:"Bình", lop:"10 Tin", comat:true},
+        {stt:8, ho:"Nguyễn Minh", ten:"Toàn", lop:"10TN2", comat:true},
+        {stt:9, ho:"Trịnh Nam", ten:"Anh", lop:"10 Toán", comat:true},
+        {stt:10, ho:"Nguyễn Bình", ten:"Minh", lop:"10 Toán", comat:true},
+        {stt:11, ho:"Nghiêm Thanh", ten:"Sơn", lop:"10TN6", comat:true},
+        {stt:12, ho:"Nguyễn Hoàng", ten:"Thiên", lop:"10TN4", comat:true},
+        {stt:13, ho:"Trần Nhật Anh", ten:"Khôi", lop:"10 Toán", comat:true},
+        {stt:14, ho:"Tất Triệu", ten:"Quân", lop:"10 Toán", comat:true},
+        {stt:15, ho:"Nguyễn Minh", ten:"Tài", lop:"10 Toán", comat:true},
+        {stt:16, ho:"Ngô Bảo", ten:"An", lop:"10 Toán", comat:true},
+        {stt:17, ho:"Nguyễn Đắc Minh", ten:"Tú", lop:"10 Toán", comat:true},
+        {stt:18, ho:"Bùi Thiện", ten:"Bảo", lop:"10TN8", comat:true},
+        {stt:19, ho:"Phan Hà Bảo", ten:"Ngọc", lop:"10TN1", comat:true},
+        {stt:20, ho:"Nguyễn Minh", ten:"Thư", lop:"10 Toán", comat:true},
+        {stt:21, ho:"Nguyễn Gia", ten:"Trọng", lop:"10 Toán", comat:true},
+        {stt:22, ho:"Lê Hoàng", ten:"Nam", lop:"10 Toán", comat:true},
+        {stt:23, ho:"Nguyễn Tú", ten:"Quỳnh", lop:"10 Văn", comat:true},
+        {stt:24, ho:"Phan Kim", ten:"Ngân", lop:"10 Toán", comat:true},
+        {stt:25, ho:"Nguyễn Trang Hà", ten:"My", lop:"10 Toán", comat:true},
+        {stt:26, ho:"Trịnh Anh", ten:"Quân", lop:"10 toán", comat:true},
+        {stt:27, ho:"Đào Lê Quang", ten:"Tùng", lop:"10 Toán", comat:true},
+        {stt:28, ho:"Trần Nhân", ten:"Kiệt", lop:"10TN4", comat:true},
+        {stt:29, ho:"Đặng Minh", ten:"Hùng", lop:"10 Toán", comat:true},
+        {stt:30, ho:"Nguyễn Minh", ten:"Tâm", lop:"10 Toán", comat:true},
+        {stt:31, ho:"Doãn Minh", ten:"Khôi", lop:"10TN6", comat:true},
+        {stt:32, ho:"Nguyễn Ngọc Thu", ten:"Hà", lop:"10TN7", comat:false},
+        {stt:33, ho:"Trương Khánh", ten:"Toàn", lop:"10 Toán", comat:true},
+        {stt:34, ho:"Nguyễn Bảo", ten:"Ngọc", lop:"10 Tin", comat:true},
+        {stt:35, ho:"Đặng Đức", ten:"Huy", lop:"10 Toán", comat:true},
+        {stt:36, ho:"Trần Hoàng Phi", ten:"Long", lop:"10 Toán", comat:true},
+        {stt:37, ho:"Trần Hồng", ten:"Yến", lop:"10 Tin", comat:true},
+        {stt:38, ho:"Phạm Nhã", ten:"Nghi", lop:"10 Toán", comat:true},
+        {stt:39, ho:"Bùi Quang Tuấn", ten:"Dũng", lop:"10TN7", comat:true},
+        {stt:40, ho:"Dương Kiến", ten:"Tường", lop:"10 Toán", comat:true},
+        {stt:41, ho:"Nguyễn Thành", ten:"Nam", lop:"10 Toán", comat:true},
+        {stt:42, ho:"Huỳnh Chí", ten:"Thiện", lop:"10 Toán", comat:true},
+        {stt:43, ho:"Trần Đức", ten:"Anh", lop:"10 Tin", comat:true},
+        {stt:44, ho:"Bùi Mai", ten:"Phương", lop:"10TN6", comat:true},
+        {stt:45, ho:"Nguyễn Ngọc Lan", ten:"Chi", lop:"10 Toán", comat:true},
+        {stt:46, ho:"Kiều Hoàng Minh", ten:"Anh", lop:"10TN1", comat:true},
+        {stt:47, ho:"Trần Đông", ten:"Quân", lop:"10 Toán", comat:true},
+        {stt:48, ho:"Nguyễn Thành", ten:"Phát", lop:"10TN5", comat:true},
+        {stt:49, ho:"Đỗ Thiên", ten:"Ân", lop:"10TN5", comat:true},
+        {stt:50, ho:"Nguyễn Cát", ten:"Tường", lop:"10 Lí", comat:true},
+        {stt:51, ho:"Nguyễn Triệu", ten:"Quang", lop:"10TN3", comat:true},
+        {stt:52, ho:"Võ Thế", ten:"Vượng", lop:"10 Toán", comat:true},
+        {stt:53, ho:"Hoàng Trọng", ten:"Phú", lop:"10 Toán", comat:true},
+        {stt:54, ho:"Nguyễn Ngọc Gia", ten:"Bảo", lop:"10TN1", comat:true},
+      ]
+});
+/* Để thêm buổi điểm danh mới, chỉ cần push thêm một object tương tự
+   (đổi id/ngay/ghiChu, giữ nguyên STT của học sinh) — sẽ tự hiện thành
+   tab ngày mới trong mục Điểm danh. */
+
+const DATA = {
+  monHoc: THONG_TIN_TRANG.monHoc,
+  moTa: THONG_TIN_TRANG.moTa,
+  chuongs: window.DATA_CHUONGS || [],
+  diemDanh: window.DATA_DIEMDANH || []
+};
+
+const STORAGE_KEY = "tc_tien_do_v1";
+const THEME_KEY = "tc_theme_v1";
+const IMAGE_KEY_PREFIX = "tc_img_";
+const ATTEND_KEY = "tc_diemdanh_v1";
+
+
+let state = {
+  view: "hoc", // "hoc" | "diemdanh"
+  currentChuong: null,
+  currentBai: null,
+  currentTab: "ly-thuyet",
+  currentVidu: 0,
+  currentBaitap: 0,
+  currentLyThuyet: 0,
+  progress: loadProgress(),
+  diemDanhOverrides: loadAttendanceOverrides(),
+  currentDiemDanhSession: null,
+  diemDanhSearch: "",
+  diemDanhLop: "",
+  diemDanhStatus: "all",
+};
+
+
+
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveProgress(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress)); }
+  catch(e){ /* localStorage không khả dụng — bỏ qua */ }
+}
+function isDone(baiId){ return !!state.progress[baiId]; }
+function toggleDone(baiId){
+  state.progress[baiId] = !state.progress[baiId];
+  saveProgress();
+  renderSidebar();
+  updateOverallProgress();
+}
+
+/* ---------- Điểm danh: lưu trạng thái vào localStorage ---------- */
+function loadAttendanceOverrides(){
+  try{
+    const raw = localStorage.getItem(ATTEND_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function saveAttendanceOverrides(){
+  try{ localStorage.setItem(ATTEND_KEY, JSON.stringify(state.diemDanhOverrides)); }
+  catch(e){ /* localStorage không khả dụng — bỏ qua */ }
+}
+function attendKey(sessionId, stt){ return sessionId + ":" + stt; }
+function isPresent(session, hs){
+  const k = attendKey(session.id, hs.stt);
+  if(Object.prototype.hasOwnProperty.call(state.diemDanhOverrides, k)) return state.diemDanhOverrides[k];
+  return !!hs.comat;
+}
+function togglePresent(session, hs){
+  const k = attendKey(session.id, hs.stt);
+  state.diemDanhOverrides[k] = !isPresent(session, hs);
+  saveAttendanceOverrides();
+  renderDiemDanh();
+  updateAttendanceBadge();
+}
+function currentDiemDanhSession(){
+  const sessions = DATA.diemDanh;
+  if(!sessions.length) return null;
+  const found = sessions.find(s => s.id === state.currentDiemDanhSession);
+  return found || sessions[sessions.length - 1];
+}
+function updateAttendanceBadge(){
+  const badge = document.getElementById("dd-nav-badge");
+  if(!badge) return;
+  const session = currentDiemDanhSession();
+  if(!session){ badge.textContent = ""; return; }
+  const absent = session.danhSach.filter(hs => !isPresent(session, hs)).length;
+  badge.textContent = absent > 0 ? String(absent) : "";
+}
+
+function allBais(){
+  const out = [];
+  DATA.chuongs.forEach(c => c.bais.forEach(b => out.push({chuong:c, bai:b})));
+  return out;
+}
+
+function findBai(baiId){
+  for(const c of DATA.chuongs){
+    for(const b of c.bais){
+      if(b.id === baiId) return {chuong:c, bai:b};
+    }
+  }
+  return null;
+}
+
+/* ---------- Markdown nhẹ: đoạn văn theo dòng trống ---------- */
+function paragraphize(str){
+  return str
+    .trim()
+    .split(/\n\s*\n/)
+    .map(p => {
+      const t = p.trim();
+      // Cho phép block HTML thô (placeholder hình, v.v.) không bọc trong <p>
+      if (/^<(div|figure|img|table|ul|ol|blockquote)\b/i.test(t)) return t;
+      const withBold = t.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g,"<br>");
+      return `<p>${withBold}</p>`;
+    })
+    .join("");
+}
+
+
+
+function lyThuyetTabLabel(block, index){
+  if(block.tieuDe) return block.tieuDe;
+  if(block.loai === "dinhnghia") return "Định nghĩa " + (index + 1);
+  if(block.loai === "dinhly") return "Định lý " + (index + 1);
+  if(block.loai === "luuy") return "Lưu ý";
+  // text: lấy dòng đầu, bỏ markdown **
+  const first = (block.noiDung || "").trim().split(/\n/)[0]
+    .replace(/^\*\*|\*\*$/g, "").replace(/^\*\s*/, "").trim();
+  if(first.length > 36) return first.slice(0, 34) + "…";
+  return first || ("Mục " + (index + 1));
+}
+
+function renderLyThuyetBlock(block){
+  if(block.loai === "text"){
+    return `<div class="block text">${paragraphize(block.noiDung)}</div>`;
+  }
+  const label = block.loai === "dinhnghia" ? "Định nghĩa" : block.loai === "dinhly" ? "Định lý" : "Lưu ý";
+  const titleHtml = block.tieuDe ? `<div class="block-title">${block.tieuDe}</div>` : "";
+  return `
+    <div class="block ${block.loai}">
+      <div class="block-label">${label}</div>
+      ${titleHtml}
+      ${paragraphize(block.noiDung)}
+    </div>`;
+}
+
+
+function doKhoBadge(doKho){
+  const map = { de: ["dễ","de"], vua: ["vừa","vua"], kho: ["khó","kho"] };
+  const [label, cls] = map[doKho] || map.vua;
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+/* ---------- Render nội dung chính ---------- */
+function renderContent(){
+  if(state.view === "diemdanh"){
+    renderDiemDanh();
+    return;
+  }
+
+  const content = document.getElementById("content");
+  const found = state.currentBai ? findBai(state.currentBai) : null;
+
+  if(!found){
+    content.innerHTML = `
+      <div class="empty-state">
+        <div class="big">Chọn một bài học</div>
+        <div>Mở danh mục bên trái để bắt đầu với lý thuyết, ví dụ minh hoạ và bài tập tự luyện.</div>
+      </div>`;
+    return;
+  }
+
+  const {chuong, bai} = found;
+  const done = isDone(bai.id);
+
+  content.innerHTML = `
+    <div class="crumbs">${chuong.ten} <span>/ ${bai.ten}</span></div>
+    <div class="topic-head">
+      <h1 class="topic-title">${bai.ten}</h1>
+      <button class="done-toggle ${done ? "done":""}" id="done-toggle" type="button">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+        ${done ? "Đã hoàn thành" : "Đánh dấu đã học"}
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn" data-tab="ly-thuyet">Lý thuyết</button>
+      <button class="tab-btn" data-tab="vi-du">Ví dụ <span class="n">${bai.viDus.length}</span></button>
+      <button class="tab-btn" data-tab="bai-tap">Bài tập <span class="n">${bai.baiTaps.length}</span></button>
+    </div>
+
+    <div class="panel" data-panel="ly-thuyet">
+      ${bai.lyThuyet.length ? `
+        <div class="sub-tabs">
+          ${bai.lyThuyet.map((block,i)=>`
+            <button type="button" class="sub-tab ${i===state.currentLyThuyet?"active":""}" data-lt="${i}">
+              ${lyThuyetTabLabel(block, i)}
+            </button>
+          `).join("")}
+        </div>
+        ${bai.lyThuyet.map((block,i)=>`
+          <div class="lt-panel ${i===state.currentLyThuyet?"active":""}" data-lt-panel="${i}">
+            <div class="ly-thuyet">${renderLyThuyetBlock(block)}</div>
+          </div>
+        `).join("")}
+      ` : emptyPanel("Chưa có lý thuyết cho bài này.")}
+    </div>
+
+
+    <div class="panel" data-panel="vi-du">
+      ${bai.viDus.length ? `
+        <div class="sub-tabs">
+          ${bai.viDus.map((v,i)=>`
+            <button type="button" class="sub-tab ${i===state.currentVidu?"active":""}" data-vidu="${i}">
+              Ví dụ ${i+1}
+            </button>
+          `).join("")}
+        </div>
+        ${bai.viDus.map((v,i)=>`
+          <div class="vidu ${i===state.currentVidu?"active":""}" data-vidu-panel="${i}">
+            <div class="vidu-head">
+              <span class="ten">${v.ten || "Ví dụ " + (i+1)}</span>
+              <button class="reveal-btn" data-reveal="vd-${i}">Xem lời giải</button>
+            </div>
+            <div class="vidu-body">
+              <div class="vidu-de">${paragraphize(v.de)}</div>
+              <div class="loigiai" id="vd-${i}">
+                <div class="tag">Lời giải</div>
+                ${paragraphize(v.loiGiai)}
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      ` : emptyPanel("Chưa có ví dụ cho bài này.")}
+    </div>
+
+    <div class="panel" data-panel="bai-tap">
+      ${bai.baiTaps.length ? `
+        <div class="sub-tabs">
+          ${bai.baiTaps.map((bt,i)=>`
+            <button type="button" class="sub-tab ${i===state.currentBaitap?"active":""}" data-baitap="${i}">
+              Bài ${i+1}
+            </button>
+          `).join("")}
+        </div>
+        ${bai.baiTaps.map((bt,i)=>`
+          <div class="baitap ${i===state.currentBaitap?"active":""}" data-baitap-panel="${i}">
+            <div class="idx">${i+1}.</div>
+            <div class="baitap-content">
+              <div class="baitap-de">${paragraphize(bt.de)}</div>
+              ${bt.dapAn ? `
+                <div class="baitap-meta">
+                  <button class="reveal-btn" data-reveal="bt-${i}">Xem đáp án</button>
+                </div>
+                <div class="baitap-answer" id="bt-${i}">${paragraphize(bt.dapAn)}</div>
+              ` : ""}
+            </div>
+          </div>
+        `).join("")}
+      ` : emptyPanel("Chưa có bài tập cho bài này.")}
+    </div>
+
+
+  `;
+
+  // tab logic
+  content.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.tab === state.currentTab);
+    btn.addEventListener("click", ()=>{
+      state.currentTab = btn.dataset.tab;
+      content.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b===btn));
+      content.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.dataset.panel===btn.dataset.tab));
+    });
+  });
+  content.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.dataset.panel===state.currentTab));
+
+  // sub-tabs: lý thuyết / ví dụ / bài tập
+  if(state.currentLyThuyet >= bai.lyThuyet.length) state.currentLyThuyet = 0;
+  if(state.currentVidu >= bai.viDus.length) state.currentVidu = 0;
+  if(state.currentBaitap >= bai.baiTaps.length) state.currentBaitap = 0;
+
+  content.querySelectorAll(".sub-tab[data-lt]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.currentLyThuyet = parseInt(btn.dataset.lt, 10);
+      content.querySelectorAll(".sub-tab[data-lt]").forEach(b=>b.classList.toggle("active", b===btn));
+      content.querySelectorAll(".lt-panel").forEach(p=>p.classList.toggle("active", parseInt(p.dataset.ltPanel,10)===state.currentLyThuyet));
+    });
+  });
+
+  content.querySelectorAll(".sub-tab[data-vidu]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.currentVidu = parseInt(btn.dataset.vidu, 10);
+      content.querySelectorAll(".sub-tab[data-vidu]").forEach(b=>b.classList.toggle("active", b===btn));
+      content.querySelectorAll(".vidu").forEach(p=>p.classList.toggle("active", parseInt(p.dataset.viduPanel,10)===state.currentVidu));
+    });
+  });
+
+  content.querySelectorAll(".sub-tab[data-baitap]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.currentBaitap = parseInt(btn.dataset.baitap, 10);
+      content.querySelectorAll(".sub-tab[data-baitap]").forEach(b=>b.classList.toggle("active", b===btn));
+      content.querySelectorAll(".baitap").forEach(p=>p.classList.toggle("active", parseInt(p.dataset.baitapPanel,10)===state.currentBaitap));
+    });
+  });
+
+
+
+  // reveal buttons
+  content.querySelectorAll("[data-reveal]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const target = document.getElementById(btn.dataset.reveal);
+      const showing = target.classList.toggle("show");
+      btn.textContent = showing ? "Ẩn lời giải" : (btn.closest(".vidu") ? "Xem lời giải" : "Xem đáp án");
+      if (target.classList.contains("baitap-answer")) btn.textContent = showing ? "Ẩn đáp án" : "Xem đáp án";
+    });
+  });
+
+
+  // done toggle
+  document.getElementById("done-toggle").addEventListener("click", ()=>{
+    toggleDone(bai.id);
+    renderContent();
+  });
+
+  document.getElementById("mb-title").textContent = bai.ten;
+
+  renderMath(content);
+  enhanceImagePlaceholders(content);
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+function emptyPanel(msg){
+  return `<div class="empty-state" style="margin:0; text-align:left; padding:24px 0;"><div>${msg}</div></div>`;
+}
+
+/* ---------- Render tab Điểm danh ---------- */
+function renderDiemDanh(){
+  document.getElementById("mb-title").textContent = "Điểm danh";
+  const content = document.getElementById("content");
+  const sessions = DATA.diemDanh;
+
+  if(!sessions.length){
+    content.innerHTML = `
+      <div class="crumbs">Điểm danh</div>
+      <div class="topic-head"><h1 class="topic-title">Điểm danh</h1></div>
+      ${emptyPanel("Chưa có dữ liệu điểm danh nào.")}`;
+    return;
+  }
+
+  const session = currentDiemDanhSession();
+  state.currentDiemDanhSession = session.id;
+
+  const search = (state.diemDanhSearch || "").trim().toLowerCase();
+  const lopFilter = state.diemDanhLop || "";
+  const statusFilter = state.diemDanhStatus || "all";
+
+  const allRows = session.danhSach.map(hs => ({hs, present: isPresent(session, hs)}));
+  const rows = allRows.filter(r => {
+    if(lopFilter && r.hs.lop !== lopFilter) return false;
+    if(statusFilter === "present" && !r.present) return false;
+    if(statusFilter === "absent" && r.present) return false;
+    if(search){
+      const hoten = (r.hs.ho + " " + r.hs.ten).toLowerCase();
+      if(!hoten.includes(search) && !r.hs.lop.toLowerCase().includes(search)) return false;
+    }
+    return true;
+  });
+
+  const total = allRows.length;
+  const presentCount = allRows.filter(r => r.present).length;
+  const absentCount = total - presentCount;
+  const pct = total ? Math.round((presentCount / total) * 100) : 0;
+
+  const lopList = [...new Set(session.danhSach.map(hs => hs.lop))].sort((a,b) => a.localeCompare(b, "vi"));
+
+  content.innerHTML = `
+    <div class="crumbs">Điểm danh <span>/ ${session.ngay}</span></div>
+    <div class="topic-head">
+      <h1 class="topic-title">Điểm danh — ${session.ngay}</h1>
+    </div>
+
+    ${sessions.length > 1 ? `
+    <div class="sub-tabs dd-sessions">
+      ${sessions.map(s => `<button type="button" class="sub-tab ${s.id===session.id?"active":""}" data-session="${s.id}">${s.ngay}</button>`).join("")}
+    </div>` : ""}
+
+    <div class="dd-stats">
+      <div class="dd-stat"><div class="dd-stat-num">${total}</div><div class="dd-stat-label">Tổng số</div></div>
+      <div class="dd-stat present"><div class="dd-stat-num">${presentCount}</div><div class="dd-stat-label">Có mặt</div></div>
+      <div class="dd-stat absent"><div class="dd-stat-num">${absentCount}</div><div class="dd-stat-label">Vắng</div></div>
+      <div class="dd-stat"><div class="dd-stat-num">${pct}%</div><div class="dd-stat-label">Tỷ lệ có mặt</div></div>
+    </div>
+
+    <div class="dd-toolbar">
+      <div class="search-box dd-search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="dd-search-input" type="text" placeholder="Tìm theo tên hoặc lớp…">
+      </div>
+      <select id="dd-lop-filter" class="dd-select">
+        <option value="">Tất cả lớp</option>
+        ${lopList.map(l => `<option value="${l}" ${l===lopFilter?"selected":""}>${l}</option>`).join("")}
+      </select>
+      <div class="dd-status-chips">
+        <button type="button" class="dd-chip ${statusFilter==="all"?"active":""}" data-status="all">Tất cả</button>
+        <button type="button" class="dd-chip ${statusFilter==="present"?"active":""}" data-status="present">Có mặt</button>
+        <button type="button" class="dd-chip ${statusFilter==="absent"?"active":""}" data-status="absent">Vắng</button>
+      </div>
+    </div>
+
+    <div class="dd-table-wrap">
+      <table class="dd-table">
+        <thead>
+          <tr>
+            <th class="stt">STT</th>
+            <th>Họ và tên</th>
+            <th>Lớp</th>
+            <th class="status">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.length ? rows.map(r => `
+            <tr class="${r.present ? "" : "row-absent"}">
+              <td class="stt">${r.hs.stt}</td>
+              <td>${r.hs.ho} ${r.hs.ten}</td>
+              <td>${r.hs.lop}</td>
+              <td class="status">
+                <button type="button" class="dd-status-btn ${r.present ? "present" : "absent"}" data-stt="${r.hs.stt}">
+                  ${r.present ? "Có mặt" : "Vắng"}
+                </button>
+              </td>
+            </tr>
+          `).join("") : `<tr><td colspan="4" class="dd-empty">Không tìm thấy học sinh phù hợp.</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const searchInput = document.getElementById("dd-search-input");
+  searchInput.value = state.diemDanhSearch || "";
+  searchInput.addEventListener("input", () => {
+    state.diemDanhSearch = searchInput.value;
+    const caret = searchInput.selectionStart;
+    renderDiemDanh();
+    const el = document.getElementById("dd-search-input");
+    if(el){ el.focus(); try{ el.setSelectionRange(caret, caret); }catch(e){} }
+  });
+
+  document.getElementById("dd-lop-filter").addEventListener("change", (e) => {
+    state.diemDanhLop = e.target.value;
+    renderDiemDanh();
+  });
+
+  if(sessions.length > 1){
+    content.querySelectorAll("[data-session]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.currentDiemDanhSession = btn.dataset.session;
+        state.diemDanhSearch = "";
+        state.diemDanhLop = "";
+        state.diemDanhStatus = "all";
+        renderDiemDanh();
+      });
+    });
+  }
+
+  content.querySelectorAll(".dd-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.diemDanhStatus = btn.dataset.status;
+      renderDiemDanh();
+    });
+  });
+
+  content.querySelectorAll(".dd-status-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const stt = parseInt(btn.dataset.stt, 10);
+      const hs = session.danhSach.find(x => x.stt === stt);
+      if(hs) togglePresent(session, hs);
+    });
+  });
+
+  updateAttendanceBadge();
+}
+
+function renderMath(container){
+  if(window.renderMathInElement){
+    renderMathInElement(container, {
+      delimiters: [
+        {left:"$$", right:"$$", display:true},
+        {left:"$", right:"$", display:false}
+      ],
+      throwOnError:false
+    });
+  }
+}
+
+/* ---------- Image upload (localStorage base64) ---------- */
+function loadImage(slotId){
+  try{ return localStorage.getItem(IMAGE_KEY_PREFIX + slotId) || null; }
+  catch(e){ return null; }
+}
+function saveImage(slotId, dataUrl){
+  try{ localStorage.setItem(IMAGE_KEY_PREFIX + slotId, dataUrl); }
+  catch(e){ alert("Không lưu được ảnh (có thể quá lớn hoặc localStorage đầy)."); }
+}
+function removeImage(slotId){
+  try{ localStorage.removeItem(IMAGE_KEY_PREFIX + slotId); }
+  catch(e){}
+}
+
+function enhanceImagePlaceholders(container){
+  // Tách khung hình sang cột phải của lời giải
+  container.querySelectorAll(".loigiai").forEach(loigiai => {
+    if(loigiai.querySelector(".loigiai-layout")) return;
+    const placeholders = [...loigiai.querySelectorAll(".img-placeholder")];
+    if(!placeholders.length) return;
+
+    const tag = loigiai.querySelector(".tag");
+    const layout = document.createElement("div");
+    layout.className = "loigiai-layout";
+    const textCol = document.createElement("div");
+    textCol.className = "loigiai-text";
+    const figCol = document.createElement("div");
+    figCol.className = "loigiai-fig";
+
+    // Di chuyển mọi node (trừ tag) vào text, placeholder vào fig
+    [...loigiai.childNodes].forEach(node => {
+      if(node === tag) return;
+      if(node.nodeType === 1 && node.classList && node.classList.contains("img-placeholder")){
+        figCol.appendChild(node);
+      } else if(node.nodeType === 1 && node.querySelector && node.querySelector(".img-placeholder")){
+        // đoạn <p> bọc placeholder (nếu có) — lấy placeholder ra
+        const ph = node.querySelector(".img-placeholder");
+        if(ph) figCol.appendChild(ph);
+        const leftover = node.textContent.trim();
+        if(leftover) textCol.appendChild(node);
+      } else {
+        textCol.appendChild(node);
+      }
+    });
+
+    placeholders.forEach(ph => {
+      if(ph.parentNode !== figCol) figCol.appendChild(ph);
+    });
+
+    layout.appendChild(textCol);
+    layout.appendChild(figCol);
+    loigiai.appendChild(layout);
+  });
+
+  container.querySelectorAll(".img-placeholder").forEach((el, idx) => {
+    const slotId = el.dataset.imgSlot || (`auto-${state.currentBai || "x"}-${idx}`);
+    el.dataset.imgSlot = slotId;
+
+    const existing = loadImage(slotId);
+    el.innerHTML = `
+      <div class="ph-empty">
+        <div class="ph-icon">📷</div>
+        <div class="ph-title">Chèn hình minh họa</div>
+        <div class="ph-hint">Bấm hoặc kéo thả ảnh</div>
+      </div>
+      <div class="ph-preview"><img alt="Hình minh họa"></div>
+      <div class="ph-actions">
+        <button type="button" class="ph-btn ph-upload">Chọn ảnh</button>
+        <button type="button" class="ph-btn danger ph-remove" style="display:none">Xóa ảnh</button>
+      </div>
+      <input type="file" accept="image/*">
+    `;
+
+    const fileInput = el.querySelector('input[type="file"]');
+    const previewImg = el.querySelector(".ph-preview img");
+    const btnUpload = el.querySelector(".ph-upload");
+    const btnRemove = el.querySelector(".ph-remove");
+
+    function showImage(dataUrl){
+      if(dataUrl){
+        previewImg.src = dataUrl;
+        el.classList.add("has-image");
+        btnRemove.style.display = "";
+        btnUpload.textContent = "Đổi ảnh";
+      } else {
+        previewImg.removeAttribute("src");
+        el.classList.remove("has-image");
+        btnRemove.style.display = "none";
+        btnUpload.textContent = "Chọn ảnh";
+      }
+    }
+
+    showImage(existing);
+
+    btnUpload.addEventListener("click", () => fileInput.click());
+    btnRemove.addEventListener("click", () => {
+      removeImage(slotId);
+      showImage(null);
+    });
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files && fileInput.files[0];
+      if(!file) return;
+      if(!file.type.startsWith("image/")){ alert("Vui lòng chọn file ảnh."); return; }
+      if(file.size > 2.5 * 1024 * 1024){ alert("Ảnh quá lớn (tối đa ~2.5MB)."); return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        saveImage(slotId, reader.result);
+        showImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+      fileInput.value = "";
+    });
+
+    el.addEventListener("dragover", e => { e.preventDefault(); el.classList.add("dragover"); });
+    el.addEventListener("dragleave", () => el.classList.remove("dragover"));
+    el.addEventListener("drop", e => {
+      e.preventDefault();
+      el.classList.remove("dragover");
+      const file = e.dataTransfer.files && e.dataTransfer.files[0];
+      if(!file || !file.type.startsWith("image/")) return;
+      if(file.size > 2.5 * 1024 * 1024){ alert("Ảnh quá lớn (tối đa ~2.5MB)."); return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        saveImage(slotId, reader.result);
+        showImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+
+
+/* ---------- Sidebar ---------- */
+function renderSidebar(){
+  const toc = document.getElementById("toc");
+  const search = document.getElementById("search").value.trim().toLowerCase();
+
+  toc.innerHTML = DATA.chuongs.map(c=>{
+    const bais = c.bais.filter(b => !search || b.ten.toLowerCase().includes(search) || c.ten.toLowerCase().includes(search));
+    if(search && bais.length===0) return "";
+    const doneCount = c.bais.filter(b=>isDone(b.id)).length;
+    const isOpen = search ? true : (state.currentChuong === c.id || DATA.chuongs.indexOf(c)===0 && !state.currentChuong);
+    return `
+      <div class="chuong ${isOpen ? "open":""}" data-chuong="${c.id}">
+        <button class="chuong-head" type="button">
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg>
+          <span class="ctitle">${c.ten}</span>
+          <span class="ccount">${doneCount}/${c.bais.length}</span>
+        </button>
+        <ul class="bai-list">
+          ${bais.map(b=>`
+            <li>
+              <button class="bai-link ${isDone(b.id)?"done":""} ${state.currentBai===b.id?"active":""}" data-bai="${b.id}" data-chuong="${c.id}" type="button">
+                <span class="dot"></span>
+                <span>${b.ten}</span>
+              </button>
+            </li>
+          `).join("")}
+        </ul>
+      </div>`;
+  }).join("");
+
+  toc.querySelectorAll(".chuong-head").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      btn.closest(".chuong").classList.toggle("open");
+    });
+  });
+  toc.querySelectorAll(".bai-link").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.view = "hoc";
+      setViewSwitchActive();
+      state.currentChuong = btn.dataset.chuong;
+      state.currentBai = btn.dataset.bai;
+      state.currentTab = "ly-thuyet";
+      state.currentLyThuyet = 0;
+      state.currentVidu = 0;
+      state.currentBaitap = 0;
+      renderSidebar();
+      renderContent();
+      closeMobileNav();
+
+
+
+    });
+  });
+}
+
+function updateOverallProgress(){
+  const all = allBais();
+  const done = all.filter(x=>isDone(x.bai.id)).length;
+  document.getElementById("progress-label").textContent = `${done}/${all.length} bài`;
+  const pct = all.length ? Math.round((done/all.length)*100) : 0;
+  document.getElementById("progress-fill").style.width = pct + "%";
+}
+
+/* ---------- Chuyển view Bài học / Điểm danh ---------- */
+function setViewSwitchActive(){
+  document.querySelectorAll(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === state.view));
+}
+function initViewSwitch(){
+  document.querySelectorAll(".view-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      state.view = btn.dataset.view;
+      setViewSwitchActive();
+      renderContent();
+      closeMobileNav();
+    });
+  });
+}
+
+/* ---------- Mobile nav ---------- */
+function openMobileNav(){ document.body.classList.add("nav-open"); }
+function closeMobileNav(){ document.body.classList.remove("nav-open"); }
+
+/* ---------- Theme toggle ---------- */
+function applyTheme(t){
+  if(t === "light" || t === "dark"){
+    document.documentElement.setAttribute("data-theme", t);
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+  }
+}
+function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
+  applyTheme(saved);
+}
+
+/* ---------- Init ---------- */
+function init(){
+  document.getElementById("ten-mon").textContent = DATA.monHoc;
+  document.getElementById("mo-ta").textContent = DATA.moTa;
+  initTheme();
+
+  document.getElementById("hamburger").addEventListener("click", openMobileNav);
+  document.getElementById("scrim").addEventListener("click", closeMobileNav);
+  document.getElementById("search").addEventListener("input", renderSidebar);
+  document.getElementById("theme-btn").addEventListener("click", ()=>{
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : current === "light" ? null : "dark";
+    applyTheme(next);
+    try{
+      if(next) localStorage.setItem(THEME_KEY, next);
+      else localStorage.removeItem(THEME_KEY);
+    }catch(e){}
+  });
+
+  initViewSwitch();
+  renderSidebar();
+  updateOverallProgress();
+  updateAttendanceBadge();
+  renderContent();
+}
+init();
+</script>
+</body>
+</html>
